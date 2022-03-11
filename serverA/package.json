@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "description": "Node.js on Docker",
   "author": "Phu Nguyen",
-  "main": "index.js",
+  "exports": "./src/index.js",
+  "type": "module",
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
   "scripts": {
-    "dev": "nodemon -L src/index.js",
-    "start": "node src/index.js"
+    "dev": "nodemon -L index.js",
+    "start": "node index.js"
   },
   "dependencies": {
     "amqplib": "^0.8.0",
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "lowdb": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^8.10.0",

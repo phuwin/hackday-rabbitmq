@@ -14,6 +14,8 @@ RUN npm install
 
 # Bundle app source
 COPY ./src ./src
+COPY db.json ./
+COPY index.js ./
 
 RUN wget -O /bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
 RUN chmod +x /bin/wait-for-it.sh

@@ -1,4 +1,4 @@
-const sendOrder = (open, order) => {
+export const sendOrder = (open, order) => {
   open.then((conn) => conn.createChannel().then((ch) => {
     const q = 'sendOrder';
     console.log(order);
@@ -12,7 +12,7 @@ const sendOrder = (open, order) => {
   })).catch(console.warn);
 };
 
-const onReceiveDoneOrder = (open, callback) => {
+export const onReceiveDoneOrder = (open, callback) => {
   const q = 'orderDone';
   open.then((conn) => {
     process.once('SIGINT', () => { conn.close(); });
@@ -30,7 +30,3 @@ const onReceiveDoneOrder = (open, callback) => {
   }).catch(console.warn);
 };
 
-module.exports = {
-  sendOrder,
-  onReceiveDoneOrder,
-};

@@ -13,11 +13,13 @@ services:
       - default
   # serverA
   servera:
+    image: servera
     build: 
       context: ./serverA
       dockerfile: Dockerfile
     volumes:
-      - ./serverA:/usr/src/app # for nodemon to update the container when files changed in serverA
+      - ./serverA/src:/usr/src/app/src # for nodemon to update the container when files changed in serverA
+      - ./serverA/index.js:/usr/src/app/index.js # 
     environment:
       - RABBIT=rabbitmq # for serverA to connect to rabbitmq
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm run dev' # for starting the serverA after rabbitmq is up and running
@@ -28,13 +30,14 @@ services:
       - default
   # serverB
   serverb:
+    image: serverb
     build: 
       context: ./serverB
       dockerfile: Dockerfile
     environment:
       - RABBIT=rabbitmq # for serverA to connect to rabbitmq
     volumes:
-      - ./serverB:/usr/src/app # for nodemon to update the container when files changed in serverA
+      - ./serverB/src:/usr/src/app/src # for nodemon to update the container when files changed in serverA
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm run dev' # for starting the serverA after rabbitmq is up and running
     restart: always
     networks:
