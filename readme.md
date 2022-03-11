@@ -25,6 +25,4 @@ Once we have the rabbitmq nodejs docker stack running, the frontend can be broug
 - There is a refresh button to fetch the list of orders again from the GET request from `servera/v1/order`.
 - Clicking an item in the list of orders will fetch the order detail by a GET request to `servera/v1/order/:orderId`
 
-Example video:
-
-![example](example.mov)
+Example video [here](example.mov).
