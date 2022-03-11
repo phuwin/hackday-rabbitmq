@@ -1,0 +1,20 @@
+{
+  "name": "server-b",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "author": "Phu Nguyen",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -L src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15"
+  }
+}

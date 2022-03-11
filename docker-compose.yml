@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  # rabbitmq
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672" # orignal port for amqplib to call to rabbitmq
+      - "15672:15672" # port for rabbitmq management tool
+    volumes:
+      - /var/lib/rabbitmq:/var/lib/rabbitmq
+    restart: always
+    networks:
+      - default
+  # serverA
+  servera:
+    build: 
+      context: ./serverA
+      dockerfile: Dockerfile
+    volumes:
+      - ./serverA:/usr/src/app # for nodemon to update the container when files changed in serverA
+    environment:
+      - RABBIT=rabbitmq # for serverA to connect to rabbitmq
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm run dev' # for starting the serverA after rabbitmq is up and running
+    ports:
+      - "8080:8080" # exposed server A port to 8080
+    restart: always
+    networks:
+      - default
+  # serverB
+  serverb:
+    build: 
+      context: ./serverB
+      dockerfile: Dockerfile
+    environment:
+      - RABBIT=rabbitmq # for serverA to connect to rabbitmq
+    volumes:
+      - ./serverB:/usr/src/app # for nodemon to update the container when files changed in serverA
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm run dev' # for starting the serverA after rabbitmq is up and running
+    restart: always
+    networks:
+      - default
