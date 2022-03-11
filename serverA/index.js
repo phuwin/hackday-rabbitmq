@@ -69,6 +69,5 @@ app.get('/v1/order', async (req,res) => {
 app.get('/v1/order/:orderId', async (req,res) => {
   const { orderId } = req.params;
   const order = await getOrder(db, orderId);
-  console.log(order);
   res.send(order);
 });

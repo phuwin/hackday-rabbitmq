@@ -6,7 +6,7 @@ const sendDoneOrder = (open, order) => {
 
     return ok.then(() => {
       ch.sendToQueue(q, Buffer.from(JSON.stringify(order)));
-      console.log(" [SERVER B] Sent '%s'", order);
+      console.log("[SERVER B] Sent '%s'", order);
       return ch.close();
     });
   })).catch(console.warn);
@@ -20,11 +20,11 @@ const onReceiveOrder = (open, callback) => {
       const ok = channel.assertQueue(q, { durable: false });
 
       ok.then(() => channel.consume(q, (msg) => {
-        console.log(" [SERVER B] Received '%s'", msg.content.toString());
+        console.log("[SERVER B] Received '%s'", msg.content.toString());
         callback(msg);
       }, { noAck: true }));
       return ok.then(() => {
-        console.log(' [SERVER B] Waiting for orders');
+        console.log('[SERVER B] Waiting for orders');
       });
     });
   }).catch(console.warn);
